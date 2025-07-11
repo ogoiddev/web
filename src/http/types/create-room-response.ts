@@ -1,7 +1,3 @@
 export type CreateRoomResponse = {
-  id: string;
-  name: string;
-  description?: string;
-  createdAt: string;
-  questionsCount: number;
+  roomId: string;
 };

@@ -15,9 +15,9 @@ export function useCreateRoom() {
         body: JSON.stringify(data),
       });
 
-      const responseData: CreateRoomResponse = await response.json();
+      const result: CreateRoomResponse = await response.json();
 
-      return responseData;
+      return result;
     },
 
     onSuccess: () => {

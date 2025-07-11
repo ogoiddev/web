@@ -21,32 +21,29 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 
-const createRoomFormSchema = z.object({
-  name: z.string().min(1),
-  description: z.string().optional(),
+const createRoomSchema = z.object({
+  name: z.string().min(3, { message: "Inclua no mínimo 3 caracteres" }),
+  description: z.string(),
 });
 
-type CreateRoomFormData = z.infer<typeof createRoomFormSchema>;
+type CreateRoomFormData = z.infer<typeof createRoomSchema>;
 
 export function CreateRoomForm() {
   const { mutateAsync: createRoom } = useCreateRoom();
 
   const createRoomForm = useForm<CreateRoomFormData>({
-    resolver: zodResolver(createRoomFormSchema),
+    resolver: zodResolver(createRoomSchema),
     defaultValues: {
       name: "",
       description: "",
     },
   });
 
-  const handleCreateRoom = async ({
-    name,
-    description,
-  }: CreateRoomFormData) => {
+  async function handleCreateRoom({ name, description }: CreateRoomFormData) {
     await createRoom({ name, description });
 
     createRoomForm.reset();
-  };
+  }
 
   return (
     <Card>
@@ -88,7 +85,7 @@ export function CreateRoomForm() {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>Descrição</FormLabel>
                     <FormControl>
                       <Textarea {...field} />
                     </FormControl>
